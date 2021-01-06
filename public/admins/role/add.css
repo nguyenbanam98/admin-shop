@@ -1,0 +1,18 @@
+
+.card-role {
+  font-size: 14px !important;
+}
+.card-header {
+  background-color: #00e765 !important;
+}
+
+tr > th {
+  color: white !important;
+}
+.table-role > td {
+  text-align: inherit !important;
+}
+
+input[type="checkbox"] {
+  transform: scale(1.2);
+}
