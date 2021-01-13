@@ -11,16 +11,9 @@ class ProductExport implements FromCollection, WithHeadings
     /**
     * @return \Illuminate\Support\Collection
     */
-    private $product;
-
-    public function __construct($product)
-    {
-        $this->product = $product;
-    }
     public function collection()
     {
-        // dd(Product::all());
-        return $this->product;
+        return Product::all();
     }
 
     public function headings(): array

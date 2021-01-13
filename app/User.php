@@ -49,8 +49,7 @@ class User extends Authenticatable
         foreach ($roles as $role) {
 
             $permissions = $role->permissions;
-            // dd($permissions);
-            // dd($permissions);
+            
 
             if ($permissions->contains('key_code', $permissionCheck)) {
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use DB;
 use App\Tag;
+use App\Brand;
 use App\Product;
 use App\Category;
 use Carbon\Carbon;
@@ -24,14 +25,17 @@ class AdminProductController extends Controller
     use StorageImageTrait, DeleteModelTrait;
 
     private $product;
+    private $brand;
 
-    public function __construct(Product $product)
+    public function __construct(Product $product, Brand $brand)
     {
         $this->product = $product;
+        $this->brand = $brand;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        
         $products = Product::latest()->paginate(5);
 
         return view('admin.product.index', compact('products'));
@@ -41,7 +45,8 @@ class AdminProductController extends Controller
     {
         $htmlOption = $this->getCategory($parentId = '');
         $tags = Tag::all();
-        return view('admin.product.add', compact('htmlOption', 'tags'));
+        $brands = $this->brand->all();
+        return view('admin.product.add', compact('htmlOption', 'tags', 'brands'));
     }
 
     public function getCategory($parentId)
@@ -58,15 +63,14 @@ class AdminProductController extends Controller
     {
         try {
 
-            // dd($request->all());
 
             DB::beginTransaction();
 
             $dataProductCreate = [
-                'name' => $request->name,
-                'price' => $request->price,
-                'content' => $request->content,
-                'user_id' => auth()->user()->id,
+                'name'        => $request->name,
+                'price'       => $request->price,
+                'content'     => $request->content,
+                'user_id'     => auth()->user()->id,
                 'category_id' => $request->category_id,
 
             ];
@@ -115,10 +119,11 @@ class AdminProductController extends Controller
         $product = Product::findOrFail($id);
 
         $htmlOption = $this->getCategory($product->category_id);
+        $brands = $this->brand->all();
 
         $tags = Tag::all();
 
-        return view('admin.product.edit', compact('htmlOption', 'product', 'tags'));
+        return view('admin.product.edit', compact('htmlOption', 'product', 'tags', 'brands'));
     }
 
     public function update(Request $request, $id)
@@ -129,11 +134,12 @@ class AdminProductController extends Controller
             DB::beginTransaction();
 
             $dataProductUpdate = [
-                'name' => $request->name,
-                'price' => $request->price,
-                'content' => $request->content,
-                'user_id' => auth()->user()->id,
+                'name'        => $request->name,
+                'price'       => $request->price,
+                'content'     => $request->content,
+                'user_id'     => auth()->user()->id,
                 'category_id' => $request->category_id,
+                'brand_id' => $request->brand_id,
 
             ];
 
@@ -228,10 +234,31 @@ class AdminProductController extends Controller
         } catch (\Exception $exception) {
             Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
             return response()->json([
-                'code' => 500,
+                'code'    => 500,
                 'message' => 'fail'
             ], 500);
         }
+    }
+
+
+    public function action($action, $id)
+    {
+        if ($action) {
+
+            $product = $this->product->findOrFail($id);
+            switch ($action) {
+                case 'active':
+                    $product->active = $product->active ? 0 : 1;
+                    $product->save();
+                    break;
+                case 'hot':
+                    $product->hot = $product->hot ? 0 : 1;
+                    $product->save();
+                    break;
+            }
+        }
+
+        return redirect()->back();
     }
 
     public function search(Request $request)
@@ -243,7 +270,7 @@ class AdminProductController extends Controller
             $select = explode(' ', $date);
             $select = implode('-', $select);
 
-            return Excel::download(new ProductExport($products), "${select}-products.xlsx");
+            return Excel::download(new ProductExport(), "${select}-products.xlsx");
         }
         return view('admin.product.index', compact('products'));
 

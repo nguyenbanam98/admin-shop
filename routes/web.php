@@ -118,6 +118,8 @@ Route::group([
 
         Route::get('/kill/{id}', 'AdminProductController@kill')->name('kill');
 
+        Route::get('/{action}/{id}', 'AdminProductController@action')->name('action');
+
     });
 
     // Slider
@@ -233,6 +235,30 @@ Route::group([
         Route::get('/delete/{id}', 'AdminPermissionController@delete')->name('delete');
 
     });
+    //brands
+
+    Route::group([
+
+        'prefix' => 'brands',
+        'as' => 'brands.',
+
+    ], function () {
+
+        Route::get('/', 'AdminBrandController@index')->name('index');
+
+        Route::get('/create', 'AdminBrandController@create')->name('create');
+
+        Route::post('/store', 'AdminBrandController@store')->name('store');
+
+        Route::get('/edit/{id}', 'AdminBrandController@edit')->name('edit');
+
+        Route::post('/update/{id}', 'AdminBrandController@update')->name('update');
+
+        Route::get('/delete/{id}', 'AdminBrandController@delete')->name('delete');
+
+        Route::get('/{action}/{id}', 'AdminBrandController@action')->name('action');
+
+    });
 
 
 });
@@ -249,5 +275,11 @@ Route::group([
     Route::get('admin/dang-xuat', 'LoginController@logout')->name('get.logout');
 
 });
+
+
+// font ends
+
+
+Route::get('/', 'HomeController@index')->name('home');
 
 

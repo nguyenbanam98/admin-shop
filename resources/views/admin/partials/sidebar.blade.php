@@ -54,8 +54,17 @@
             <li><a class="nav-link" href="{{route('admin.sliders.create')}}">Thêm</a></li>
           </ul>
         </li>
+
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-sliders-h"></i> <span>Brand</span></a>
+          <ul class="dropdown-menu">
+            <li><a class="nav-link" href="{{route('admin.brands.index')}}">Danh sách</a></li>
+            <li><a class="nav-link" href="{{route('admin.brands.create')}}">Thêm</a></li>
+          </ul>
+        </li>
+
         <li class="nav-item ">
-          <a href="{{route('admin.settings.create')}}" class="nav-link" ><i class="fas fa-cog"></i> <span>Setting</span></a>
+          <a href="{{route('admin.settings.index')}}" class="nav-link" ><i class="fas fa-cog"></i> <span>Setting</span></a>
           
         </li>
         <li class="nav-item dropdown">

@@ -18,7 +18,7 @@
     <h1>Product Page</h1>
 	</div>
 	
-	<form class="form-inline" method="get" action="{{ route('admin.products.search') }}">
+	<form class="form-inline" action="{{route('admin.products.search')}}" method="get">
 
 		<div class="form-group mx-sm-2 mb-2">
 				<label class="sr-only"> Nhập ID </label>
@@ -33,6 +33,7 @@
 							 value="{{ request()->name }}"
 							 class="form-control" placeholder="Nhập tên sản phẩm" name="name">
 		</div>
+	
 
 		<div class="form-group mx-sm-2 mb-2">
 				<label class="sr-only"> Nhập tags sản phẩm </label>
@@ -47,6 +48,14 @@
 						<option value="">Chọn danh mục sản phẩm</option>
 						{!! $htmlOptionSearchHeader !!}
 				</select>
+		</div>
+
+		<div class="form-group mx-sm-2 mb-2">
+			<label class="sr-only"> Nhập tên thương hiệu </label>
+			<select class="form-control" name="brand_id">
+					<option value="">Chọn thương hiệu</option>
+					{!! $htmlOptionBrandSearchHeader !!}
+			</select>
 		</div>
 
 
@@ -76,6 +85,8 @@
 					<th scope="col">Giá</th>
 					<th scope="col">Hình ảnh</th>
 					<th scope="col">Danh mục</th>
+					<th scope="col">Trang thai</th>
+          <th scope="col">Nổi bật</th>
 					<th scope="col">Action</th>
 			</tr>
 		</thead>
@@ -89,6 +100,12 @@
 			<td>{{ number_format($productItem->price)}}</td>
 			<td><img src="{{ $productItem->feature_image_path }}" class="product_image_150_100"></td>
 			<td>{{ optional($productItem->category)->name }}</td>
+			<td>
+				<a href="{{route('admin.products.action', ['active','id' => $productItem->id])}}" class="badge badge-{{$productItem->getStatus($productItem->active)['class']}}">{{$productItem->getStatus($productItem->active)['name']}}</a>
+			</td>
+			<td>
+					<a href="{{route('admin.products.action', ['hot','id' => $productItem->id])}}" class="badge badge-{{$productItem->getHot($productItem->hot)['class']}}">{{$productItem->getHot($productItem->hot)['name']}}</a>
+			</td>
 			<td>
 					<a href="{{route('admin.products.edit', ['id' => $productItem->id])}}"
 						 class="btn btn-primary">Edit</a>

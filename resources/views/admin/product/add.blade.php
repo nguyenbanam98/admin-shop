@@ -60,6 +60,14 @@
         </select>
     </div>
     <div class="form-group">
+        <label>Brand</label>
+        <select class="form-control select2_init" name="brand_id">
+            @foreach($brands as $brand)
+            <option value="{{ $brand->id }}">{{ $brand->name }}</option> 
+            @endforeach
+        </select>
+    </div>
+    <div class="form-group">
       <label>Ảnh đại diện</label>
       <input type="file"
           class="form-control-file"
