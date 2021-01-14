@@ -94,7 +94,7 @@ class Product extends Model
        
         $products = $products
             ->select('products.*')
-            ->latest('products.created_at')
+            ->latest()
             ->paginate(5);
 
         return $products;

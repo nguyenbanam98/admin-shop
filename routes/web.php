@@ -263,6 +263,11 @@ Route::group([
 
 });
 
+Route::get('resizes/{size}/{imagePath}', 'Admin\AdminImageController@flyResize')->where('imagePath', '(.*)');
+
+
+
+
 // Auth admin
 
 Route::group([

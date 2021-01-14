@@ -18,6 +18,7 @@ use App\Traits\StorageImageTrait;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ProductAddRequest;
 
 class AdminProductController extends Controller
@@ -131,6 +132,7 @@ class AdminProductController extends Controller
         
         try {
 
+
             DB::beginTransaction();
 
             $dataProductUpdate = [
@@ -143,17 +145,25 @@ class AdminProductController extends Controller
 
             ];
 
+            $product = Product::findOrFail($id);
+
             $dataUploadFeatureImage = $this->storageTraitUpload($request, 'feature_image_path', 'product');
+
 
             if (!empty($dataUploadFeatureImage)) {
 
+                $filePath = $product->feature_image_path;
+                unlink('.'.$filePath);
+                
                 $dataProductUpdate['feature_image_path'] = $dataUploadFeatureImage['file_path'];
                 $dataProductUpdate['feature_image_name'] = $dataUploadFeatureImage['file_name'];
             }
 
-            Product::find($id)->update($dataProductUpdate);
 
-            $product = Product::find($id);
+
+
+            $product->update($dataProductUpdate);
+
 
             if ($request->hasFile('image_path')) {
 
@@ -218,7 +228,7 @@ class AdminProductController extends Controller
         try {
             $product = $this->product->withTrashed()->where('id', $id)->first();
 
-            $filePath = $product->feature_image_path;                                                         
+            $filePath = $product->feature_image_path;  
 
             if(!empty($filePath)) {
                 unlink('.'.$filePath);

@@ -2,14 +2,33 @@
 
 namespace App\Traits;
 
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Image;
+use Illuminate\Support\Facades\Storage;
 
 trait StorageImageTrait
 {
     public function storageTraitUpload($request, $fieldName, $foderName)
     {
         if ($request->hasFile($fieldName)) {
+
+            // $image = $request->$fieldName;
+
+            // $resized_img = Image::make($image);
+
+            // $fileNameOrigin = $image->getClientOriginalName();
+
+            // $resized_img->fit(255, 270)->save($image);
+
+            // $path = $image->storeAs('public/' . $foderName . '/' . auth()->id(), $fileNameOrigin);
+
+            // $data = [
+            //     'file_name' => $fileNameOrigin,
+            //     'file_path' => $url = Storage::url($path),
+            // ];
+
+            // return $data;
+
 
             $file = $request->$fieldName;
 
