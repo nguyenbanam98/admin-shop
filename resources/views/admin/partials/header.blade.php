@@ -21,7 +21,7 @@
         <a href="features-settings.html" class="dropdown-item has-icon">
           <i class="fas fa-cog"></i> Settings
         </a>
-        <a href="{{route('get.logout')}}" class="dropdown-item has-icon">
+        <a href="{{route('admin.get.logout')}}" class="dropdown-item has-icon">
           <i class="fas fa-cog"></i> Logout
         </a>
         <div class="dropdown-divider"></div>

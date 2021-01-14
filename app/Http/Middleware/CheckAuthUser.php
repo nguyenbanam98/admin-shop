@@ -17,8 +17,12 @@ class CheckAuthUser
     public function handle($request, Closure $next)
     {
         if (!Auth::guard('web')->check()) {
-            return redirect()->route('get.login');
+            return redirect()->route('admin.get.login');
         }
+        
+        // if (!Auth::guard('web')->check()) {
+        //     return redirect()->route('get.login');
+        // }
 
         return $next($request);
     }

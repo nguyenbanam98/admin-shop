@@ -46,9 +46,9 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
-        'user_shop' => [
+        'shops' => [
             'driver' => 'session',
-            'provider' => 'user_shop',
+            'provider' => 'shops',
         ],
     ],
 
@@ -74,9 +74,9 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-        'user_shop' => [
+        'shops' => [
             'driver' => 'eloquent',
-            'model' => App\UserShop::class,
+            'model' => App\Shop::class,
         ],
 
         // 'users' => [
@@ -107,8 +107,8 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
-        'user_shop' => [
-            'provider' => 'user_shop',
+        'shops' => [
+            'provider' => 'shops',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

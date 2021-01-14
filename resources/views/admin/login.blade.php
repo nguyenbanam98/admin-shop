@@ -36,7 +36,7 @@
               @endif
 
               <div class="card-body">
-                <form method="POST" action="{{route('post.login')}}" class="needs-validation" novalidate="">
+                <form method="POST" action="{{route('admin.post.login')}}" class="needs-validation" novalidate="">
                   @csrf
                   <div class="form-group">
                     <label for="email">Email</label>

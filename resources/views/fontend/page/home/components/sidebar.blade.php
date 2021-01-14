@@ -6,7 +6,7 @@
         <form action="#">
           <ul>
             @foreach($categories as $category)
-            <li class="filter-list"><input class="pixel-radio" type="radio" id="{{$category->id}}" name="brand"><label for="{{$category->id}}">{{$category->name}}<span> ({{$category->products->count()}})</span></label></li>
+            <li class="filter-list"><input class="pixel-radio" type="radio" id="category-{{$category->id}}" name="brand"><label for="category-{{$category->id}}">{{$category->name}}<span> ({{$category->products->count()}})</span></label></li>
             @endforeach
           </ul>
         </form>
@@ -20,7 +20,7 @@
       <form action="#">
         <ul>
           @foreach ($brands as $brand)
-          <li class="filter-list"><input class="pixel-radio" type="radio" id="{{$brand->id}}" name="brand"><label for="{{$brand->id}}">{{$brand->name}}<span>({{$brand->products->count()}})</span></label></li>
+          <li class="filter-list"><input class="pixel-radio" type="radio" id="brand-{{$brand->id}}" name="brand"><label for="brand-{{$brand->id}}">{{$brand->name}}<span>({{$brand->products->count()}})</span></label></li>
           @endforeach
         </ul>
       </form>

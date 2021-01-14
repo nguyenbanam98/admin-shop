@@ -272,6 +272,7 @@ Route::get('resizes/{size}/{imagePath}', 'Admin\AdminImageController@flyResize')
 
 Route::group([
     'namespace' => 'Admin',
+    'as' => 'admin.'
 
 ], function () {
     Route::get('/admin/dang-nhap', 'LoginController@getLogin')->name('get.login');
@@ -282,9 +283,18 @@ Route::group([
 });
 
 
-// font ends
+// font end
 
 
 Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('/dang-nhap', 'LoginController@getLogin')->name('get.login');
+Route::post('/dang-nhap', 'LoginController@postLogin')->name('post.login');
+Route::get('dang-xuat', 'LoginController@logout')->name('get.logout');
+
+Route::post('/dang-ky', 'RegisterController@create')->name('post.register');
+Route::get('dang-ky', 'RegisterController@index')->name('get.register');
+
+
 
 
