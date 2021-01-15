@@ -66,5 +66,7 @@
   </section>
 
   
+  @include('fontend.page.products.topproduct')
 
   @endsection
+

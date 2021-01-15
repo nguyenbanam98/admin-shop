@@ -12,7 +12,7 @@
       <div class="col-lg-6">
         <div class="owl-carousel owl-theme s_Product_carousel">
           <div class="single-prd-item">
-            <img class="img-fluid" src="{{config('image.base_url_medium').$product->feature_image_path}}" alt="">
+            <img class="img-fluid" src="{{config('image.base_url_larage').$product->feature_image_path}}" alt="">
           </div>
           <!-- <div class="single-prd-item">
             <img class="img-fluid" src="img/category/s-p1.jpg" alt="">
@@ -353,4 +353,7 @@
   </div>
 </section>
 
+@include('fontend.page.products.topproduct')
+
 @endsection
+

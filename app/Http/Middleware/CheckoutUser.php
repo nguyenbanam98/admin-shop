@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class CheckAuthUser
+class CheckoutUser
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,11 @@ class CheckAuthUser
      */
     public function handle($request, Closure $next)
     {
-        if (!Auth::guard('web')->check()) {
-            return redirect()->route('admin.get.login');
-        }
 
+        if (!Auth::guard('shops')->check()) {
+            return redirect()->route('get.login');
+        }
+        
         return $next($request);
     }
 }

@@ -33,7 +33,7 @@ class LoginController extends Controller
 
     public function logout()
     {
-        Auth::logout();
+        Auth::guard('shops')->logout();
         return redirect()->route('get.login');
     }
 }

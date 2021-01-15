@@ -33,4 +33,25 @@ class CartController extends Controller
         $contents = Cart::content();
         return view('fontend.page.products.cart', compact('contents'));
     }
+
+    public function delete($id)
+    {
+        Cart::remove($id);
+
+        return response()->json([
+            'code'    => 200,
+            'message' => 'success'
+        ], 200);
+    }
+
+    public function updateQty(Request $request, $id)
+    {
+        $qty = $request->quantity;
+        
+        Cart::update($id, $qty);
+
+       
+        return redirect()->back();
+
+    }
 }

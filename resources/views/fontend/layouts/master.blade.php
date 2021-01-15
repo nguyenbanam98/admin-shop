@@ -33,7 +33,6 @@
   @yield('content')
   
   
-  @include('fontend.components.topproduct')
 
   <!--================ Start  footer Area  =================-->	
     @include('fontend.components.footer')

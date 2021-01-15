@@ -14,6 +14,7 @@
                             <th scope="col">Price</th>
                             <th scope="col">Quantity</th>
                             <th scope="col">Total</th>
+                            <th scope="col">Trạng thái</th>
                         </tr>
                     </thead>
               
@@ -33,6 +34,9 @@
                             <td>
                                 <h5>{{number_format($content->price)}}VNĐ</h5>
                             </td>
+                            <form action="{{route('update.qty',['id'=> $content->rowId])}}" method="post">
+                                @csrf
+
                             <td>
                                 <div class="product_count">
                                     <input type="text" name="quantity" id="sst-{{$content->name}}" maxlength="12" title="Quantity:" value="{{$content->qty}}"
@@ -44,8 +48,18 @@
                                 </div>
                             </td>
                             <td>
-                                <h5>{{number_format($content->price * $content->qty)}}VNĐ</h5>
+                                <h5 class="mt-0">{{number_format($content->price * $content->qty)}}VNĐ</h5>
+                                    
+                                
                             </td>
+                            <td>
+                                <button type="submit" class="btn btn-sm text-primary"><i class="fas fa-pencil-alt"></i></button>
+                                <a href=""
+                                    data-url="{{ route('delete.cart', ['id' => $content->rowId]) }}"
+                                    class="btn btn-sm action_delete text-danger"><i class="fas fa-trash"></i></a>
+                            </td>
+                            </form>
+
                         </tr>
 
                         @endforeach
@@ -78,7 +92,7 @@
                                 <h5>Subtotal</h5>
                             </td>
                             <td>
-                                <h5>{{Cart::subtotal()}}VNĐ<</h5>
+                                <h5>{{Cart::subtotal()}}VNĐ</h5>
                             </td>
                         </tr>
                         <tr class="shipping_area">
@@ -109,7 +123,7 @@
                                         <option value="4">Select a State</option>
                                     </select>
                                     <input type="text" placeholder="Postcode/Zipcode">
-                                    <a class="gray_btn" href="#">Update Details</a>
+                                    <a class="gray_btn btn-primary" href="/checkout">Thanh toán</a>
                                 </div>
                             </td>
                         </tr>
@@ -126,7 +140,7 @@
                             <td>
                                 <div class="checkout_btn_inner d-flex align-items-center">
                                     <span class="gray_btn" href="#">Thành tiền</span>
-                                    <a class="primary-btn ml-2" href="#">{{Cart::total(10, )}}VNĐ</a>
+                                    <a class="primary-btn ml-2" href="#">{{Cart::total()}}VNĐ</a>
                                 </div>
                             </td>
                         </tr>
@@ -137,4 +151,15 @@
     </div>
 </section>
 
+
+
 @endsection
+
+
+
+
+@push('scripts')
+
+    <script src="{{asset('fontend/product/delete.js')}}"></script>
+
+@endpush

@@ -35,9 +35,11 @@
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false">Pages</a>
               <ul class="dropdown-menu">
-                <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-                <li class="nav-item"><a class="nav-link" href="register.html">Register</a></li>
-                <li class="nav-item"><a class="nav-link" href="tracking-order.html">Tracking</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dang-nhap">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dang-ky">Register</a></li>
+                @if(Auth::guard('shops')->check())
+                <li class="nav-item"><a class="nav-link" href="/dang-xuat">Logout</a></li>
+                @endif
               </ul>
             </li>
             <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
@@ -45,7 +47,7 @@
 
           <ul class="nav-shop">
             <li class="nav-item"><button><i class="ti-search"></i></button></li>
-            <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button> </li>
+            <li class="nav-item"><button><a href="/show-cart"><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></a></button> </li>
             <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li>
           </ul>
         </div>
