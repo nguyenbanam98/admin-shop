@@ -297,4 +297,14 @@ Route::get('dang-ky', 'RegisterController@index')->name('get.register');
 
 
 
+// product
+Route::get('/san-pham/{slug}', 'ProductController@productDetail')->name('product.detail');
+
+// Route::get('/thuong-hieu/{slug}', 'HomeController@categoryDetail')->name('category.detail');
+
+// Cart
+
+Route::post('/save-cart/{id}', 'CartController@saveCart')->name('save.cart');
+Route::get('/show-cart', 'CartController@show')->name('show.cart');
+
 

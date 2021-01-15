@@ -17,6 +17,7 @@ class HomeController extends Controller
 
         $products = Product::where('active', 1)->latest()->take(9)->get();
 
+
         $dataView = [
             'categories' => $categories,
             'brands' => $brands,
@@ -24,4 +25,9 @@ class HomeController extends Controller
         ];
         return view('fontend.page.home.index', $dataView);
     }
+
+    // public function category($slug)
+    // {
+
+    // }
 }

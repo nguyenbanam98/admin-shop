@@ -69,10 +69,13 @@ class AdminProductController extends Controller
 
             $dataProductCreate = [
                 'name'        => $request->name,
+                'slug'      => Str::slug($request->name),
                 'price'       => $request->price,
                 'content'     => $request->content,
                 'user_id'     => auth()->user()->id,
                 'category_id' => $request->category_id,
+                'description' => $request->description,
+                'brand_id'    => $request->brand_id,
 
             ];
 
@@ -137,11 +140,13 @@ class AdminProductController extends Controller
 
             $dataProductUpdate = [
                 'name'        => $request->name,
+                'slug'        => Str::slug($request->name),
                 'price'       => $request->price,
                 'content'     => $request->content,
                 'user_id'     => auth()->user()->id,
                 'category_id' => $request->category_id,
-                'brand_id' => $request->brand_id,
+                'description' => $request->description,
+                'brand_id'    => $request->brand_id,
 
             ];
 
@@ -151,16 +156,10 @@ class AdminProductController extends Controller
 
 
             if (!empty($dataUploadFeatureImage)) {
-
-                $filePath = $product->feature_image_path;
-                unlink('.'.$filePath);
-                
+ 
                 $dataProductUpdate['feature_image_path'] = $dataUploadFeatureImage['file_path'];
                 $dataProductUpdate['feature_image_name'] = $dataUploadFeatureImage['file_name'];
             }
-
-
-
 
             $product->update($dataProductUpdate);
 
@@ -274,6 +273,7 @@ class AdminProductController extends Controller
     public function search(Request $request)
     {
         $products = $this->product->getProductSearch($request);
+        
         if($request->export) {
 
             $date = Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString();

@@ -74,6 +74,10 @@
           name="feature_image_path"
       >
    </div>
+   <div class="form-group">
+    <label>Mô tả</label>
+    <textarea class="form-control" name="description" id="description"></textarea>
+  </div>
     <div class="form-group">
         <label>Nội dung</label>
         <textarea class="form-control" name="content" id="content"></textarea>

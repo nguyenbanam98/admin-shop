@@ -41,7 +41,7 @@
               <div class="col-md-6 col-lg-4">
                 <div class="card text-center card-product">
                   <div class="card-product__img">
-                    <img class="card-img" src="{{config('image.base_url_thumbnail').$product->feature_image_path }}" alt="{{$product->name}}">
+                    <img class="card-img" src="{{config('image.base_url_medium').$product->feature_image_path }}" alt="{{$product->name}}">
                     <ul class="card-product__imgOverlay">
                       <li><button><i class="ti-search"></i></button></li>
                       <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -50,7 +50,7 @@
                   </div>
                   <div class="card-body">
                     <p>Accessories</p>
-                    <h4 class="card-product__title"><a href="#">{{$product->name}}</a></h4>
+                    <h4 class="card-product__title"><a href="{{route('product.detail', $product->slug)}}">{{$product->name}}</a></h4>
                     <p class="card-product__price">{{number_format($product->price)}}VNĐ</p>
                   </div>
                 </div>
@@ -64,11 +64,7 @@
       </div>
     </div>
   </section>
-	<!-- ================ category section end ================= -->		  
 
-	<!-- ================ top product area start ================= -->	
-  @include('fontend.page.home.components.top')
-  <!-- ================ top product area end ================= -->	
   
 
   @endsection

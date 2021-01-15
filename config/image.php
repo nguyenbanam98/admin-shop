@@ -20,13 +20,14 @@ return [
 
 
     'sizes' => [
-        'thumbnail' => [255, 270],
-        'medium'    => [540, 583],
-        // 'larage' => [600, 600],
+        'thumbnail' => [70, 70],
+        'medium' => [255, 270],
+        'larage'    => [540, 583],
     ],
 
     'base_url_thumbnail' => 'http://localhost:8000/resizes/thumbnail',
     'base_url_medium'    => 'http://localhost:8000/resizes/medium',
+    'base_url_larage'    => 'http://localhost:8000/resizes/larage',
     
 
 ];

@@ -87,6 +87,10 @@
         class="card-img-top" alt="">
     </div>
     <div class="form-group">
+      <label>Mô tả</label>
+      <textarea class="form-control" name="description" id="description">{{ $product->description }}</textarea>
+    </div>
+    <div class="form-group">
         <label>Nội dung</label>
         <textarea class="form-control" name="content" id="content">{{ $product->content }}</textarea>
     </div>
@@ -112,7 +116,7 @@
       </div>
     </div>
   
-    <button type="submit" class="btn btn-primary btn-sm ml-3">Add post</button>
+    <button type="submit" class="btn btn-primary btn-sm ml-3">Edit</button>
 
   
     </form>
@@ -128,5 +132,5 @@
 
   <script src="{{asset('admins/filemanager.js')}}"></script>
 
-
+  
 @endpush

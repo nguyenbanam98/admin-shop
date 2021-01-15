@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Brand;
+use App\Product;
 use App\Category;
 use App\Components\Recusive;
 use Illuminate\Support\Facades\View;
@@ -34,6 +35,11 @@ class AppServiceProvider extends ServiceProvider
         $recusiveBrand = new Recusive(Brand::all());
         $htmlOptionBrandSearchHeader = $recusiveBrand->handleRecusive($parentId = '');
         View::share('htmlOptionBrandSearchHeader', $htmlOptionBrandSearchHeader);
+
+        $topProducts = Product::where('active', 1)->where('hot', 1)->take(12)->get(['name', 'price', 'feature_image_path', 'slug']);
+        View::share('topProducts', $topProducts);
+
+
 
     }
 }

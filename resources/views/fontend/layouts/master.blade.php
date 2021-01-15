@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="{{asset('fontend/vendors/nouislider/nouislider.min.css')}}">
 
   <link rel="stylesheet" href="{{asset('fontend/css/style.css')}}">
+
+  @stack('css')
+
 </head>
 <body>
   <!--================ Start Header Menu Area =================-->
@@ -28,7 +31,10 @@
 	<!-- ================ end banner area ================= -->
 
   @yield('content')
-	
+  
+  
+  @include('fontend.components.topproduct')
+
   <!--================ Start  footer Area  =================-->	
     @include('fontend.components.footer')
 	<!--================ End footer Area  =================-->
@@ -44,5 +50,8 @@
   <script src="{{asset('fontend/vendors/jquery.ajaxchimp.min.js')}}"></script>
   <script src="{{asset('fontend/vendors/mail-script.js')}}"></script>
   <script src="{{asset('fontend/js/main.js')}}"></script>
+
+  @stack('scripts')
+
 </body>
 </html>
