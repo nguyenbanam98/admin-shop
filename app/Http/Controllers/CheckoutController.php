@@ -18,16 +18,25 @@ class CheckoutController extends Controller
     public function checkout()
     {
         $contents = Cart::content();
+          
+        $shipping = Auth::guard('shops')->user()->shipping;
 
-
-        return view('fontend.page.products.checkout', compact('contents'));
+        return view('fontend.page.products.checkout', compact('contents', 'shipping'));
     }
 
     public function save(Request $request)
     {
         $this->saveCheckout($request);
 
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->saveCheckout($request, $id);
+
+
         return redirect()->back();
+
     }
 
     public function saveCheckout($request, int $id = null)
@@ -46,5 +55,10 @@ class CheckoutController extends Controller
                 'notes' => $request->notes,
             ]
         );
+    }
+
+    public function order(Request $request)
+    {
+        
     }
 }

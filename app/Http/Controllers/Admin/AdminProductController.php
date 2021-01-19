@@ -157,6 +157,8 @@ class AdminProductController extends Controller
 
             if (!empty($dataUploadFeatureImage)) {
  
+                $this->deleteImage($product->feature_image_path);
+
                 $dataProductUpdate['feature_image_path'] = $dataUploadFeatureImage['file_path'];
                 $dataProductUpdate['feature_image_name'] = $dataUploadFeatureImage['file_name'];
             }
@@ -166,6 +168,14 @@ class AdminProductController extends Controller
 
             if ($request->hasFile('image_path')) {
 
+                $oldImage = ProductImage::where('product_id',$id)->get(['image_path']);
+
+                foreach ($oldImage as $key => $value) {
+
+                    $this->deleteImage($value->image_path);
+                    
+                } 
+                
                 ProductImage::where('product_id', $id)->delete();
 
                 foreach ($request->image_path as $fileItem) {

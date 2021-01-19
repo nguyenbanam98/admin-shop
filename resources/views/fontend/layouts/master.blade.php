@@ -50,6 +50,8 @@
   <script src="{{asset('fontend/vendors/mail-script.js')}}"></script>
   <script src="{{asset('fontend/js/main.js')}}"></script>
 
+  
+
   @stack('scripts')
 
 </body>

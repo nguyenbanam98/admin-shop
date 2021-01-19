@@ -2,8 +2,9 @@
 
 namespace App\Traits;
 
-use Illuminate\Support\Str;
 use Image;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 trait StorageImageTrait
@@ -64,6 +65,18 @@ trait StorageImageTrait
             'file_path' => Storage::url($filePath),
         ];
         return $dataUploadTrait;
+    }
+
+    public function deleteImage($path)
+    {
+        $file_path = '.'.$path;             
+        // dd($file_path);
+        if(file_exists(public_path($file_path))){
+
+            unlink(public_path($file_path));
+      
+          }
+         return null;
     }
 
 }

@@ -39,5 +39,10 @@ class Shop extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function shipping()
+    {
+        return $this->hasOne(Shipping::class, 'customer_id');
+    }
+
     
 }

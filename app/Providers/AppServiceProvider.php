@@ -8,6 +8,8 @@ use App\Category;
 use App\Components\Recusive;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Gloudemans\Shoppingcart\Facades\Cart;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,8 +40,6 @@ class AppServiceProvider extends ServiceProvider
 
         $topProducts = Product::where('active', 1)->where('hot', 1)->take(12)->get(['name', 'price', 'feature_image_path', 'slug']);
         View::share('topProducts', $topProducts);
-
-
 
     }
 }

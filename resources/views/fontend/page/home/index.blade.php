@@ -44,8 +44,18 @@
                     <img class="card-img" src="{{config('image.base_url_medium').$product->feature_image_path }}" alt="{{$product->name}}">
                     <ul class="card-product__imgOverlay">
                       <li><button><i class="ti-search"></i></button></li>
-                      <li><button><i class="ti-shopping-cart"></i></button></li>
+                      
+                        <li>
+                          <form action="{{route('save.cart', ['id' => $product->id])}}" method="post">
+                            @csrf
+                            <input type="hidden"  name="quantity" min="1" value="1" /> 
+                            <button type="submit" class="add_to_cart"><i class="ti-shopping-cart"></i></button>
+
+                          </form>
+
+                        </li>
                       <li><button><i class="ti-heart"></i></button></li>
+                      
                     </ul>
                   </div>
                   <div class="card-body">
@@ -69,4 +79,11 @@
   @include('fontend.page.products.topproduct')
 
   @endsection
+
+
+  {{-- @push('scripts')
+
+  <script src="{{asset('fontend/product/addcart.js')}}"></script>
+
+  @endpush --}}
 

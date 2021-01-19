@@ -306,15 +306,18 @@ Route::get('/san-pham/{slug}', 'ProductController@productDetail')->name('product
 
 Route::post('/save-cart/{id}', 'CartController@saveCart')->name('save.cart');
 Route::get('/show-cart', 'CartController@show')->name('show.cart');
+// Route::get('/add-cart/{id}', 'CartController@addCart')->name('add.cart');
 Route::get('/delete-cart/{id}', 'CartController@delete')->name('delete.cart');
-Route::post('/update-qty/{id}', 'CartController@updateQty')->name('update.qty');
+Route::get('/update-qty', 'CartController@updateQty')->name('update.qty');
 
 // Check Out
 Route::group([
     'middleware' => 'checkout.user',
 ], function () {
-    Route::get('/checkout', 'CheckoutController@checkout')->name('checkout');
+    Route::get('cart/checkout', 'CheckoutController@checkout')->name('checkout');
     Route::post('/save-checkout', 'CheckoutController@save')->name('save.checkout');
+    Route::post('/update-checkout/{id}', 'CheckoutController@update')->name('update.checkout');
+    Route::post('cart/order', 'CheckoutController@order')->name('order.checkout');
 });
 
 
