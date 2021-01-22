@@ -39,6 +39,12 @@ function actionDelete(event){
 
 }
 
+// function viewTransaction(event) {
+//     event.preventDefault();
+//     $('.js_preview_transaction').attr('id', 'modal-5');
+// }
+
 $(function () {
  $(document).on('click', '.action_delete', actionDelete);
+//  $(document).on('click', '.js_preview_transaction', viewTransaction);
 });

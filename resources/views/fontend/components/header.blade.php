@@ -47,7 +47,7 @@
 
           <ul class="nav-shop">
             <li class="nav-item"><button><i class="ti-search"></i></button></li>
-            <li class="nav-item"><button><a href="/show-cart"><i class="ti-shopping-cart"></i><span class="nav-shop__circle cart_count">{{\Cart::content()->count()}}</span></a></button> </li>
+            <li class="nav-item"><button><a href="/show-cart"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id="cart_count">{{\Cart::content()->count()}}</span></a></button> </li>
             <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li>
           </ul>
         </div>

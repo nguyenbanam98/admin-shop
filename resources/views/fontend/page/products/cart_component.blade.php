@@ -1,19 +1,22 @@
+
+
 <section class="cart_area">
   <div class="container">
       <div class="cart_inner">
-      
+
           <div class="table-responsive">
               <table class="table update_cart_url" data-url="{{route('update.qty')}}">
                   <thead>
                       <tr>
                           <th scope="col">Product</th>
                           <th scope="col">Price</th>
+                          <th scope="col">Khuyến mãi</th>
                           <th scope="col">Quantity</th>
                           <th scope="col">Total</th>
                           <th scope="col">Trạng thái</th>
                       </tr>
                   </thead>
-            
+
                   <tbody>
                       @foreach($contents as $key => $content)
                       <tr>
@@ -29,8 +32,10 @@
                           </td>
                           <td>
                               <h5>{{number_format($content->price)}}VNĐ</h5>
+                          </td>  <td>
+                              <h5>{{$content->options->sale }}%</h5>
                           </td>
-                       
+
                           <td>
                               <div class="product_count">
                                   <input type="text" name="quantity" id="sst-{{$content->name}}" maxlength="12" title="Quantity:" value="{{$content->qty}}"
@@ -43,16 +48,17 @@
                           </td>
                           <td>
                               <h5 class="mt-0">{{number_format($content->price * $content->qty)}}VNĐ</h5>
-                                  
-                              
+
+
                           </td>
                           <td>
-                              <a  href="#"
+                              <a  href="javascript:void(0)"
                                     data-id="{{$content->rowId}}"
                                     data-url="{{ route('update.qty')}}"
                                   class="btn btn-sm text-primary update_cart"><i class="fas fa-pencil-alt"></i></a>
-                              <a href="#"
-                                  data-url="{{ route('delete.cart', ['id' => $content->rowId]) }}"
+                              <a href="javascript:void(0)"
+                                    data-id="{{$content->rowId}}"
+                                  data-url="{{ route('delete.cart')}}"
                                   class="btn btn-sm action_delete text-danger"><i class="fas fa-trash"></i></a>
                           </td>
 
@@ -88,7 +94,7 @@
                               <h5>Subtotal</h5>
                           </td>
                           <td>
-                              <h5>{{Cart::subtotal()}}VNĐ</h5>
+                              <h5>{{\Cart::subtotal()}}VNĐ</h5>
                           </td>
                       </tr>
                       <tr class="shipping_area">
@@ -104,7 +110,7 @@
                           <td>
                               <div class="shipping_box">
                                   <ul class="list">
-                                      <li>Thuế <span>{{Cart::tax()}} VNĐ</span></li>
+                                      <li>Thuế <span>{{\Cart::tax()}} VNĐ</span></li>
                                       <li>Phí vận chuyển <span>Free</span></li>
                                   </ul>
                                   <h6>Calculate Shipping <i class="fa fa-caret-down" aria-hidden="true"></i></h6>
@@ -136,7 +142,7 @@
                           <td>
                               <div class="checkout_btn_inner d-flex align-items-center">
                                   <span class="gray_btn" href="cart/checkout">Thành tiền</span>
-                                  <a class="primary-btn ml-2" href="cart/checkout">{{Cart::total()}}VNĐ</a>
+                                  <a class="primary-btn ml-2" href="cart/checkout">{{\Cart::total()}}VNĐ</a>
                               </div>
                           </td>
                       </tr>
@@ -144,6 +150,8 @@
               </table>
           </div>
       </div>
+      <input type="hidden" id="change_cart_count" value="{{\Cart::content()->count()}}" >
   </div>
 </section>
+
 

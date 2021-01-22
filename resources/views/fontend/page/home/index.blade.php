@@ -46,12 +46,12 @@
                       <li><button><i class="ti-search"></i></button></li>
                       
                         <li>
-                          <form action="{{route('save.cart', ['id' => $product->id])}}" method="post">
-                            @csrf
-                            <input type="hidden"  name="quantity" min="1" value="1" /> 
-                            <button type="submit" class="add_to_cart"><i class="ti-shopping-cart"></i></button>
+                          {{-- <form action="{{route('save.cart', ['id' => $product->id])}}" method="post">
+                            @csrf --}}
+                            {{-- <input type="hidden"  name="quantity" min="1" value="1" />  --}}
+                            <button type="submit" data-url="{{route('add.cart', ['id' => $product->id])}}" class="add_to_cart"><i class="ti-shopping-cart"></i></button>
 
-                          </form>
+                          {{-- </form> --}}
 
                         </li>
                       <li><button><i class="ti-heart"></i></button></li>
@@ -81,9 +81,9 @@
   @endsection
 
 
-  {{-- @push('scripts')
+  @push('scripts')
 
-  <script src="{{asset('fontend/product/addcart.js')}}"></script>
+  <script src="{{asset('fontend/product/delete.js')}}"></script>
 
-  @endpush --}}
+  @endpush
 

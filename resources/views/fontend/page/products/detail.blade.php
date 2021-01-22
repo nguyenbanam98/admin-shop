@@ -27,6 +27,7 @@
           <h3>{{$product->name}}</h3>
           <h2>{{number_format($product->price)}}VNĐ</h2>
           <ul class="list">
+            <li><a href="#"><span>Khuyến mãi</span> : {{number_format(number_price($product->price, $product->sale))}} VNĐ</a></li>
             <li><a class="active" href="#"><span>Thương hiệu</span> : {{$product->brand->name}}</a></li>
             <li><a href="#"><span>Tình trạng</span> : Còn hàng</a></li>
           </ul>

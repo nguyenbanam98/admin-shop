@@ -16,11 +16,12 @@ class CartController extends Controller
         $data['id'] = $id;
         $data['qty'] = $quantity;
         $data['name'] = $product->name;
-        $data['price'] = $product->price;
+        $data['price'] = number_price($product->price, $product->sale);
         $data['weight'] = '1';
-        $data['options']['image'] = $product->feature_image_path;
-
-
+        $data['options'] = [
+                'image' =>  $product->feature_image_path,
+                'sale' => $product->sale,
+        ];
         Cart::add($data);
         // Cart::destroy();
 
@@ -28,29 +29,32 @@ class CartController extends Controller
 
     }
 
-    // public function addCart(Request $request, $id)
-    // {
-    //     $product = Product::findOrFail($id);
-    //     $quantity = $request->quantity;
+    public function addCart(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+        $quantity = $request->quantity;
 
-    //     $data['id'] = $id;
-    //     $data['qty'] = 1;
-    //     $data['name'] = $product->name;
-    //     $data['price'] = $product->price;
-    //     $data['weight'] = '1';
-    //     $data['options']['image'] = $product->feature_image_path;
+        $data['id'] = $id;
+        $data['qty'] = 1;
+        $data['name'] = $product->name;
+        $data['price'] = number_price($product->price, $product->sale);
+        $data['weight'] = '1';
+        $data['options'] = [
+            'image' =>  $product->feature_image_path,
+            'sale' => $product->sale,
+        ];
+
+        Cart::add($data);
+        $qtyCart = Cart::content()->count();
 
 
-    //     Cart::add($data);
-    //     // Cart::destroy();
+        return response()->json([
+            'code'    => 200,
+            'message' => 'success',
+            'count' => $qtyCart
+        ], 200);
 
-        
-    //     return response()->json([
-    //         'code'    => 200,
-    //         'message' => 'success'
-    //     ], 200);
-
-    // }
+    }
 
     public function show()
     {
@@ -59,33 +63,29 @@ class CartController extends Controller
         return view('fontend.page.products.cart', compact('contents'));
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
-        Cart::remove($id);
+        $id = $request->id;
 
-        return response()->json([
-            'code'    => 200,
-            'message' => 'success'
-        ], 200);
+        Cart::remove($id);
+        $contents = Cart::content();
+
+
+        return view('fontend.page.products.cart_component', compact('contents'));
+
     }
 
     public function updateQty(Request $request)
     {
+
         $qty = $request->quantity;
         $id = $request->id;
-        
+
         Cart::update($id, $qty);
 
         $contents = Cart::content();
 
-        $cartView = view('fontend.page.products.cart_component', compact('contents'))->render();
-
-       
-        return response()->json([
-            'code'    => 200,
-            'cart_component' => $cartView,
-            'message' => 'success'
-        ], 200);
+        return view('fontend.page.products.cart_component', compact('contents'));
 
     }
 }

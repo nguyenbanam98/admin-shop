@@ -260,6 +260,31 @@ Route::group([
 
     });
 
+     //transaction
+
+     Route::group([
+
+        'prefix' => 'transaction',
+        'as' => 'transactions.',
+
+    ], function () {
+
+        Route::get('/', 'AdminTransactionController@index')->name('index');
+
+        Route::get('/create', 'AdminTransactionController@create')->name('create');
+
+        // Route::post('/store', 'AdminTransactionController@store')->name('store');
+
+        // Route::get('/edit/{id}', 'AdminTransactionController@edit')->name('edit');
+
+        // Route::post('/update/{id}', 'AdminTransactionController@update')->name('update');
+
+        Route::get('/delete/{id}', 'AdminTransactionController@delete')->name('delete');
+
+        // Route::get('/{action}/{id}', 'AdminTransactionController@action')->name('action');
+
+    });
+
 
 });
 
@@ -306,8 +331,8 @@ Route::get('/san-pham/{slug}', 'ProductController@productDetail')->name('product
 
 Route::post('/save-cart/{id}', 'CartController@saveCart')->name('save.cart');
 Route::get('/show-cart', 'CartController@show')->name('show.cart');
-// Route::get('/add-cart/{id}', 'CartController@addCart')->name('add.cart');
-Route::get('/delete-cart/{id}', 'CartController@delete')->name('delete.cart');
+Route::get('/add-cart/{id}', 'CartController@addCart')->name('add.cart');
+Route::get('/delete-cart', 'CartController@delete')->name('delete.cart');
 Route::get('/update-qty', 'CartController@updateQty')->name('update.qty');
 
 // Check Out
@@ -315,8 +340,8 @@ Route::group([
     'middleware' => 'checkout.user',
 ], function () {
     Route::get('cart/checkout', 'CheckoutController@checkout')->name('checkout');
-    Route::post('/save-checkout', 'CheckoutController@save')->name('save.checkout');
-    Route::post('/update-checkout/{id}', 'CheckoutController@update')->name('update.checkout');
+    // Route::post('/update-checkout/{id}', 'CheckoutController@update')->name('update.checkout');
+    Route::post('/save-checkout', 'CheckoutController@save')->name('checkout');
     Route::post('cart/order', 'CheckoutController@order')->name('order.checkout');
 });
 

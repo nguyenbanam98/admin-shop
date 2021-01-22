@@ -55,6 +55,11 @@
           </ul>
         </li>
 
+        <li class="nav-item ">
+          <a href="{{route('admin.transactions.index')}}" class="nav-link" ><i class="fas fa-cog"></i> <span>Transaction</span></a>
+          
+        </li>
+
         <li class="nav-item dropdown">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-sliders-h"></i> <span>Brand</span></a>
           <ul class="dropdown-menu">

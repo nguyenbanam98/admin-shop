@@ -36,7 +36,7 @@ class AdminProductController extends Controller
 
     public function index(Request $request)
     {
-        
+
         $products = Product::latest()->paginate(5);
 
         return view('admin.product.index', compact('products'));
@@ -68,14 +68,15 @@ class AdminProductController extends Controller
             DB::beginTransaction();
 
             $dataProductCreate = [
-                'name'        => $request->name,
-                'slug'      => Str::slug($request->name),
-                'price'       => $request->price,
-                'content'     => $request->content,
-                'user_id'     => auth()->user()->id,
+                'name' => $request->name,
+                'slug' => Str::slug($request->name),
+                'price' => $request->price,
+                'content' => $request->content,
+                'user_id' => auth()->user()->id,
                 'category_id' => $request->category_id,
+                'sale' => $request->sale,
                 'description' => $request->description,
-                'brand_id'    => $request->brand_id,
+                'brand_id' => $request->brand_id,
 
             ];
 
@@ -102,12 +103,12 @@ class AdminProductController extends Controller
             }
 
             // insert product tag
-            
+
             $product->tags()->attach($request->tags);
 
             DB::commit();
 
-            return redirect()->back()->with('success','Bạn đã thêm dữ liệu thành công');
+            return redirect()->back()->with('success', 'Bạn đã thêm dữ liệu thành công');
 
         } catch (\Throwable $exception) {
 
@@ -132,21 +133,22 @@ class AdminProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        
+
         try {
 
 
             DB::beginTransaction();
 
             $dataProductUpdate = [
-                'name'        => $request->name,
-                'slug'        => Str::slug($request->name),
-                'price'       => $request->price,
-                'content'     => $request->content,
-                'user_id'     => auth()->user()->id,
+                'name' => $request->name,
+                'slug' => Str::slug($request->name),
+                'price' => $request->price,
+                'content' => $request->content,
+                'user_id' => auth()->user()->id,
                 'category_id' => $request->category_id,
+                'sale' => $request->sale,
                 'description' => $request->description,
-                'brand_id'    => $request->brand_id,
+                'brand_id' => $request->brand_id,
 
             ];
 
@@ -156,7 +158,7 @@ class AdminProductController extends Controller
 
 
             if (!empty($dataUploadFeatureImage)) {
- 
+
                 $this->deleteImage($product->feature_image_path);
 
                 $dataProductUpdate['feature_image_path'] = $dataUploadFeatureImage['file_path'];
@@ -168,14 +170,14 @@ class AdminProductController extends Controller
 
             if ($request->hasFile('image_path')) {
 
-                $oldImage = ProductImage::where('product_id',$id)->get(['image_path']);
+                $oldImage = ProductImage::where('product_id', $id)->get(['image_path']);
 
                 foreach ($oldImage as $key => $value) {
 
                     $this->deleteImage($value->image_path);
-                    
-                } 
-                
+
+                }
+
                 ProductImage::where('product_id', $id)->delete();
 
                 foreach ($request->image_path as $fileItem) {
@@ -220,40 +222,42 @@ class AdminProductController extends Controller
     {
         $products = Product::onlyTrashed()->paginate(4);
 
-        
+
         return view('admin.product.remove', compact('products'));
     }
 
-    public function restore($id){
+    public function restore($id)
+    {
 
         $product = Product::withTrashed()->where('id', $id)->first();
 
         $product->restore();
 
-        return redirect()->back()->with('success','Bạn đã khôi phục thành công');
+        return redirect()->back()->with('success', 'Bạn đã khôi phục thành công');
     }
+
     public function kill($id)
     {
         try {
             $product = $this->product->withTrashed()->where('id', $id)->first();
 
-            $filePath = $product->feature_image_path;  
+            $filePath = $product->feature_image_path;
 
-            if(!empty($filePath)) {
-                unlink('.'.$filePath);
+            if (!empty($filePath)) {
+                unlink('.' . $filePath);
             }
-        
+
             $product->forceDelete();
 
             return response()->json([
-                'code'    => 200,
+                'code' => 200,
                 'message' => 'success'
             ], 200);
 
         } catch (\Exception $exception) {
             Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
             return response()->json([
-                'code'    => 500,
+                'code' => 500,
                 'message' => 'fail'
             ], 500);
         }
@@ -283,8 +287,8 @@ class AdminProductController extends Controller
     public function search(Request $request)
     {
         $products = $this->product->getProductSearch($request);
-        
-        if($request->export) {
+
+        if ($request->export) {
 
             $date = Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString();
             $select = explode(' ', $date);
@@ -295,7 +299,6 @@ class AdminProductController extends Controller
         return view('admin.product.index', compact('products'));
 
     }
-
 
 
 }
