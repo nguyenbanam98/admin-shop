@@ -23,7 +23,7 @@ class Transaction extends Model
 
     protected $statusProduct = [
         1 => [
-            'class' => 'default',
+            'class' => 'info',
             'name' => 'Tiếp nhận'
         ],
         2 => [

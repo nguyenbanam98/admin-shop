@@ -1,6 +1,7 @@
 function actionDelete(event){
   event.preventDefault();
   let urlRequest = $(this).data('url');
+  console.log(urlRequest);
   let that = $(this);
 
   Swal.fire({

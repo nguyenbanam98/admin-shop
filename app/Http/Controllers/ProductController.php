@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use Illuminate\Http\Request;
+use App\Services\ProcessViewService;
 
 class ProductController extends Controller
 {
@@ -11,12 +12,9 @@ class ProductController extends Controller
     {
         $product = Product::where('slug', $slug)->first();
 
+        ProcessViewService::view('products', 'view', 'product', $product->id);
 
         return view('fontend.page.products.detail', compact('product'));
     }
 
-    // public function topProducts()
-    // {
-
-    // }
 }

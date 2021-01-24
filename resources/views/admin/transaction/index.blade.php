@@ -21,7 +21,6 @@
       {{ Session('success') }}
 	</div> 
 	@endif
-	<a href="{{ route('admin.transactions.create') }}" class="btn btn-info btn-sm">Add transaction</a>
   <br><br>
     <table class="table table-striped table-hover table-sm table-bordered">
 
@@ -52,8 +51,10 @@
                         {{number_format($transaction->total_money)}} VNĐ
                     </td>
                     <td>
-                      {{$transaction->getType($transaction->type)['name']}}
+                      <span class="badge badge-primary">
+                        {{$transaction->getType($transaction->type)['name']}}
 
+                      </span>
                     </td>
                     <td>
                       <span class="badge badge-{{$transaction->getStatus($transaction->status)['class']}}">
@@ -61,11 +62,22 @@
                       </span>
                     </td>
                     <td>
-                        <a href="#" class="btn btn-primary btn-sm js_preview_transaction">View</a>
+                        <a href="{{route('admin.transactions.view', ['id' => $transaction->id])}}" class="btn btn-primary btn-sm">View</a>
 
                         <a href=""
                             data-url="{{ route('admin.transactions.delete', ['id' => $transaction->id]) }}"
                             class="btn btn-danger btn-sm action_delete">Delete</a>
+                      <div class="dropdown d-inline mr-2">
+                        <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Trạng thái
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="{{route('admin.transactions.action', ['receive', $transaction->id])}}">Tiếp nhận</a>
+                          <a class="dropdown-item" href="{{route('admin.transactions.action', ['process', $transaction->id])}}">Đang vận chuyển</a>
+                          <a class="dropdown-item" href="{{route('admin.transactions.action', ['success', $transaction->id])}}">Đã bàn giao</a>
+                          <a class="dropdown-item" href="{{route('admin.transactions.action', ['cancel', $transaction->id])}}">Đã hủy</a>
+                        </div>
+                      </div>
                     </td>
                 </tr>
             @endforeach
@@ -75,13 +87,13 @@
         </table>
     {{ $transactions->links() }}
 </div>
+
 </section>
 
 @endsection
 
 
 @push('scripts')
-    <script src="{{asset('assets/js/page/bootstrap-modal.js')}}"></script>
     <script src="{{asset('admins/delete.js')}}"></script>
 
 @endpush

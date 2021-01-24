@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Order;
+use App\Product;
 use App\Transaction;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -12,10 +14,12 @@ class AdminTransactionController extends Controller
 {
     use DeleteModelTrait;
     private $transaction;
+    private $order;
 
-    public function __construct(Transaction $transaction)
+    public function __construct(Transaction $transaction, Order $order)
     {
         $this->transaction = $transaction;
+        $this->order = $order;
     }
     public function index()
     {
@@ -23,68 +27,56 @@ class AdminTransactionController extends Controller
         return view('admin.transaction.index', compact('transactions'));
     }
 
-    // public function create()
-    // {
-    //     return view('admin.brand.add');
-    // }
+    public function view($id)
+    {
+        $orders = Order::with('product:id,name,slug')->where('transaction_id', $id)->get();
+        // dd($orders);
+        return view('admin.transaction.view', compact('orders'));
+    }
 
-    // public function saveBrand($request, int $id = null)
-    // {
-
-    //     return $this->brand->updateOrCreate(
-    //         [
-    //             'id' => $id,
-    //         ],
-    //         [
-    //             'name' => $request->name,
-    //             'slug' => Str::slug($request->name),
-    //             'description' => $request->description,
-    //         ]
-    //     );
-    // }
-
-    // public function store(Request $request)
-    // {
-
-    //     $this->saveBrand($request);
-
-    //     return redirect()->back();
-    // }
-
-    // public function edit($id)
-    // {
-    //     $brand = $this->brand->findOrFail($id);
-    //     return view('admin.brand.edit', compact('brand'));
-    // }
-
-    // public function update(Request $request, $id)
-    // {
-
-    //     $this->saveBrand($request, $id);
-
-    //     return redirect()->route('admin.brands.index');
-    // }
-
-    // public function action($action, $id)
-    // {
-    //     if ($action) {
-
-    //         $brand = $this->brand->findOrFail($id);
-    //         switch ($action) {
-    //             case 'active':
-    //                 $brand->active = $brand->active ? 0 : 1;
-    //                 $brand->save();
-    //                 break;
-    //         }
-    //     }
-
-    //     return redirect()->back();
-    // }
+    public function action($action, $id)
+    {
+        $transaction = $this->transaction->findOrFail($id);
+        if($transaction) {
+            switch($action) {
+                case 'receive':
+                    $transaction->status = 1;
+                    break;
+                case 'process':
+                    $transaction->status = 2;
+                    break;
+                case 'success':
+                    $transaction->status = 3;
+                    break;
+                case 'cancel':
+                    $transaction->status = -1;
+                    break;
+            }
+            $transaction->save();
+        }
+        return redirect()->back();
+    }
 
 
     public function delete($id)
     {
-        return $this->deleteModelTrait($id, $this->category);;
+        return $this->deleteModelTrait($id, $this->transaction);;
+    }
+
+    public function deleteOrder($id)
+    {
+        $order = $this->order->findOrFail($id);
+
+        if(isset($order)) {
+
+            $money = $order->qty * $order->price;
+
+            \DB::table('transactions')->where('id',$order->transaction_id)->decrement('total_money', $money);
+
+             return $this->deleteModelTrait($id, $order);
+        }
+
+        return redirect()->back();
     }
 
 }

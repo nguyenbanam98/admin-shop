@@ -275,13 +275,14 @@ Route::group([
 
         // Route::post('/store', 'AdminTransactionController@store')->name('store');
 
-        // Route::get('/edit/{id}', 'AdminTransactionController@edit')->name('edit');
+        Route::get('/show/{id}', 'AdminTransactionController@view')->name('view');
 
         // Route::post('/update/{id}', 'AdminTransactionController@update')->name('update');
 
         Route::get('/delete/{id}', 'AdminTransactionController@delete')->name('delete');
+        Route::get('/delete-order/{id}', 'AdminTransactionController@deleteOrder')->name('delete.order');
 
-        // Route::get('/{action}/{id}', 'AdminTransactionController@action')->name('action');
+        Route::get('/{action}/{id}', 'AdminTransactionController@action')->name('action');
 
     });
 
