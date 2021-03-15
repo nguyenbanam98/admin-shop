@@ -37,8 +37,16 @@ class AdminProductController extends Controller
     public function index(Request $request)
     {
 
-        $products = Product::latest()->paginate(5);
+        $products = Product::with('category')->latest()->paginate(5);
 
+//        $product = Product::with(['category'])->paginate(6);
+
+//        dd($product);
+
+
+//        return response()->json([
+//            'data' => $product
+//        ], 200);
         return view('admin.product.index', compact('products'));
     }
 
@@ -221,6 +229,7 @@ class AdminProductController extends Controller
     public function removeProduct()
     {
         $products = Product::onlyTrashed()->paginate(4);
+
 
 
         return view('admin.product.remove', compact('products'));

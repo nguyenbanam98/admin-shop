@@ -8,6 +8,7 @@ use Illuminate\Support\Arr;
 class Brand extends Model
 {
     protected $guarded = [];
+    
     protected $table = 'brands';
 
     protected $status = [

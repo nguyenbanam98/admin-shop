@@ -25,6 +25,7 @@ class AdminBrandController extends Controller
 
     public function create()
     {
+
         return view('admin.brand.add');
     }
 
@@ -57,6 +58,7 @@ class AdminBrandController extends Controller
         return view('admin.brand.edit', compact('brand'));
     }
 
+   
     public function update(Request $request, $id)
     {
 

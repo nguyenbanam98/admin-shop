@@ -17,7 +17,7 @@
   <div class="section-header">
     <h1>Product Page</h1>
 	</div>
-	
+
 	<form class="form-inline" action="{{route('admin.products.search')}}" method="get">
 
 		<div class="form-group mx-sm-2 mb-2">
@@ -33,7 +33,7 @@
 							 value="{{ request()->name }}"
 							 class="form-control" placeholder="Nhập tên sản phẩm" name="name">
 		</div>
-	
+
 
 		<div class="form-group mx-sm-2 mb-2">
 				<label class="sr-only"> Nhập tags sản phẩm </label>
@@ -71,7 +71,7 @@
     @if(Session::has('success'))
   	<div class="alert alert-success" role="alert">
       {{ Session('success') }}
-	</div> 
+	</div>
 	@endif
 
 	<a href="{{ route('admin.products.create') }}" class="btn btn-info btn-sm">Add product</a>
@@ -96,6 +96,7 @@
 
 		 <tr>
 			<td>{{ $key + $products->firstitem() }}</td>
+{{--             <td>{{ $key + 1 }}</td>--}}
 			<td>{{ $productItem->name }}</td>
 			<td>{{ number_format($productItem->price)}}</td>
 			<td><img src="{{ $productItem->feature_image_path }}" class="product_image_150_100"></td>
