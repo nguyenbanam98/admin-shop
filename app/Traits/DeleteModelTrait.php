@@ -5,6 +5,7 @@ namespace App\Traits;
 use Illuminate\Support\Facades\Log;
 
 trait DeleteModelTrait {
+
     public function deleteModelTrait($id, $model)
     {
         try {

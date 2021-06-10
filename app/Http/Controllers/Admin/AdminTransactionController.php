@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Order;
-use App\Product;
-use App\Transaction;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use App\Traits\DeleteModelTrait;
+use App\Models\Order;
 use App\Http\Controllers\Controller;
-
+use App\Models\Transaction;
+use App\Traits\DeleteModelTrait;
 class AdminTransactionController extends Controller
 {
     use DeleteModelTrait;

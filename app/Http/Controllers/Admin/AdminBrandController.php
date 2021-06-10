@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Brand;
+use App\Models\Brand;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Traits\DeleteModelTrait;
@@ -58,7 +58,7 @@ class AdminBrandController extends Controller
         return view('admin.brand.edit', compact('brand'));
     }
 
-   
+
     public function update(Request $request, $id)
     {
 

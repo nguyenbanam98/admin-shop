@@ -19,11 +19,9 @@
     @if(Session::has('success'))
   	<div class="alert alert-success" role="alert">
       {{ Session('success') }}
-	</div> 
+	</div>
 	@endif
-	@can('category-add')
 	<a href="{{ route('admin.categories.create') }}" class="btn btn-info btn-sm">Add category</a>
-	@endcan
 	<br><br>
 
 	<table class="table table-striped table-hover table-sm table-bordered">
@@ -40,21 +38,15 @@
 				<td>{{ $key + $categories->firstitem() }}</td>
 				<td>{{ $category->name }}</td>
 				<td>
-					@can('category-edit')
 					<a href="{{route('admin.categories.edit', ['id' => $category->id])}}" class="btn btn-primary btn-sm">Edit</a>
-					@endcan
-
-					@can('category-delete')
-
-          <a href=""
-            data-url="{{ route('admin.categories.delete', ['id' => $category->id]) }}"
-						class="btn btn-danger btn-sm action_delete">Delete</a>
-					@endcan
-					
+                      <a href=""
+                         data-url="{{ route('admin.categories.delete', ['id' => $category->id]) }}"
+						 class="btn btn-danger btn-sm action_delete">
+                          Delete
+                      </a>
 				</td>
 			</tr>
 			@endforeach
-
 		</tbody>
 	</table>
 	{{ $categories->links() }}

@@ -15,7 +15,7 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->integer('customer_id')->default(0)->index();
+            $table->foreignId('customer_id')->constrained()->onDelete('CASCADE');
             $table->string('name');
             $table->string('total_money');
             $table->string('address');

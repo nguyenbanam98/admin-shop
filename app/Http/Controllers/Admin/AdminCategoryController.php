@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Category;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use App\Components\Recusive;
 use Illuminate\Http\Request;
 use App\Traits\DeleteModelTrait;
 use App\Http\Controllers\Controller;
-
 class AdminCategoryController extends Controller
 {
     use DeleteModelTrait;
@@ -79,12 +78,12 @@ class AdminCategoryController extends Controller
         return view('admin.category.add', compact('htmlOption'));
     }
 
-  
+
 
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'bail|required|unique:categories|max:255',      
+            'name' => 'bail|required|unique:categories|max:255',
         ]);
 
         $this->saveCategory($request);
@@ -104,7 +103,7 @@ class AdminCategoryController extends Controller
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-        
+
         $htmlOption = $this->getCategory($category->parent_id);
 
         return view('admin.category.edit', compact('category', 'htmlOption'));
@@ -113,7 +112,7 @@ class AdminCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'bail|required|unique:categories|max:255',      
+            'name' => 'bail|required|unique:categories|max:255',
         ]);
         $category = Category::findOrFail($id);
         $category->saveCategory($request, $id);

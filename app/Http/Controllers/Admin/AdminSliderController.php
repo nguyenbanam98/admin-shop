@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Slider;
+use App\Models\Slider;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Traits\DeleteModelTrait;
 use App\Traits\StorageImageTrait;
 use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\SliderAddRequest;
 
 class AdminSliderController extends Controller
@@ -85,7 +85,7 @@ class AdminSliderController extends Controller
 
     }
 
-  
+
     public function delete($id)
     {
         return $this->deleteModelTrait($id, $this->slider);
