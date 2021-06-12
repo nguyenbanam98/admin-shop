@@ -23,8 +23,8 @@ class CreateProductsTable extends Migration
             $table->string('size')->default('M');
             $table->string('feature_image_path')->nullable();
             $table->string('feature_image_name')->nullable();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('category_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('SET NULL');
+            $table->foreignId('category_id')->nullable()->constrained()->onDelete('SET NULL');
             $table->tinyinteger('active')->default(1)->index();
             $table->tinyinteger('hot')->default(0);
             $table->integer('sale')->default(0);

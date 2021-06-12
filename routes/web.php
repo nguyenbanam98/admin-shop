@@ -19,7 +19,8 @@ Route::group([
     'namespace' => 'Admin',
 ], function () {
     Route::get('/', 'AdminController@index')->name('index');
-// category
+    
+    // category
     Route::group([
         'prefix' => 'category',
         'as' => 'categories.',
@@ -30,32 +31,6 @@ Route::group([
         Route::get('/edit/{id}', 'AdminCategoryController@edit')->middleware('can:category-edit')->name('edit');
         Route::post('/update/{id}', 'AdminCategoryController@update')->name('update');
         Route::get('/delete/{id}', 'AdminCategoryController@delete')->middleware('can:category-delete')->name('delete');
-    });
-
-    // Menu
-    Route::group([
-        'prefix' => 'menu',
-        'as' => 'menus.',
-    ], function () {
-        Route::get('/', 'AdminMenuController@index')->name('index');
-        Route::get('/create', 'AdminMenuController@create')->name('create');
-        Route::post('/store', 'AdminMenuController@store')->name('store');
-        Route::get('/edit/{id}', 'AdminMenuController@edit')->name('edit');
-        Route::post('/update/{id}', 'AdminMenuController@update')->name('update');
-        Route::get('/delete/{id}', 'AdminMenuController@delete')->name('delete');
-    });
-
-    // tag
-    Route::group([
-        'prefix' => 'tag',
-        'as' => 'tags.',
-    ], function () {
-        Route::get('/', 'AdminTagController@index')->name('index');
-        Route::get('/create', 'AdminTagController@create')->name('create');
-        Route::post('/store', 'AdminTagController@store')->name('store');
-        Route::get('/edit/{id}', 'AdminTagController@edit')->name('edit');
-        Route::post('/update/{id}', 'AdminTagController@update')->name('update');
-        Route::get('/delete/{id}', 'AdminTagController@delete')->name('delete');
     });
 
      // product
@@ -88,19 +63,6 @@ Route::group([
         Route::get('/edit/{id}', 'AdminSliderController@edit')->name('edit');
         Route::post('/update/{id}', 'AdminSliderController@update')->name('update');
         Route::get('/delete/{id}', 'AdminSliderController@delete')->name('delete');
-    });
-
-    // Settings
-    Route::group([
-        'prefix' => 'settings',
-        'as' => 'settings.',
-    ], function () {
-        Route::get('/', 'AdminSettingController@index')->name('index');
-        Route::get('/create', 'AdminSettingController@create')->name('create');
-        Route::post('/store', 'AdminSettingController@store')->name('store');
-        Route::get('/edit/{id}', 'AdminSettingController@edit')->name('edit');
-        Route::post('/update/{id}', 'AdminSettingController@update')->name('update');
-        Route::get('/delete/{id}', 'AdminSettingController@delete')->name('delete');
     });
 
     // User
